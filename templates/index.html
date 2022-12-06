@@ -31,16 +31,16 @@
                     motif batik parang dan ceplok. Dikembangkan oleh Titan Bagus Bramantyo.
                 </p>
 
-                <form action="/predict" method="post" enctype="multipart/form-data">
-                    <div>
-                        <div class="col">
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-10">
                             <dl>
                                 <input class="form-control" name="file" type="file" placeholder="Pilih gambar batik..."
                                     aria-label="Pilih gambar batik..." required>
                             </dl>
                         </div>
-                        <div class="col-auto">
-                            <input class="btn btn-primary" type="submit" value="Hasil">
+                        <div class="col-2">
+                            <input class="btn btn-primary" type="submit" value="Unggah">
                             </input>
                         </div>
                     </div>
@@ -60,13 +60,19 @@
                 {% if filename %}
                 <div class="container">
                     <div class="row">
+                        <div class="col">
+                            <label>Nama file : {{ filename }}</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
                         <div class="col-6">
                             <img src="{{ url_for('display_image', filename=filename) }}" width="150px">
                         </div>
                         <div class="col-6">
-                            <label> KNN Model : <i> {{prediction}} </i></label><br>
-                            <label>SVC Model : </label><br>
-                            <label>NB Model : </label>
+                            <label> KNN Model : <b> Batik Parang </b></label><br>
+                            <label>SVC Model : <b> Batik Parang </b></label><br>
+                            <label>NB Model : <b> Batik Parang </b></label>
                         </div>
                     </div>
                 </div>
