@@ -32,7 +32,6 @@
                 </p>
 
                 <form action="/predict" method="post" enctype="multipart/form-data">
-                    <!-- Image input-->
                     <div>
                         <div class="col">
                             <dl>
@@ -65,9 +64,7 @@
                             <img src="{{ url_for('display_image', filename=filename) }}" width="150px">
                         </div>
                         <div class="col-6">
-                            {% if prediction %}
                             <label> KNN Model : <i> {{prediction}} </i></label><br>
-                            {% endif %}
                             <label>SVC Model : </label><br>
                             <label>NB Model : </label>
                         </div>
