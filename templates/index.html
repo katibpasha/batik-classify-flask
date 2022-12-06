@@ -31,7 +31,7 @@
                     motif batik parang dan ceplok. Dikembangkan oleh Titan Bagus Bramantyo.
                 </p>
 
-                <form action="/" method="post" enctype="multipart/form-data">
+                <form action="/predict" method="post" enctype="multipart/form-data">
                     <!-- Image input-->
                     <div>
                         <div class="col">
@@ -65,7 +65,9 @@
                             <img src="{{ url_for('display_image', filename=filename) }}" width="150px">
                         </div>
                         <div class="col-6">
-                            <label>KNN Model : </label><br>
+                            {% if prediction %}
+                            <label> KNN Model : <i> {{prediction}} </i></label><br>
+                            {% endif %}
                             <label>SVC Model : </label><br>
                             <label>NB Model : </label>
                         </div>
