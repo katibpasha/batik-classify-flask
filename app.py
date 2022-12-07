@@ -1,5 +1,4 @@
 from flask import Flask, flash, request, redirect, url_for, render_template
-from importlib.resources import path
 import os
 from werkzeug.utils import secure_filename
 import pickle
@@ -28,7 +27,6 @@ def allowed_file(filename):
 radius = 2
 n_points = 8 * radius
 METHOD = 'uniform'
-
 # make function of LBP
 
 
@@ -36,7 +34,6 @@ def predict_knn(img):
     img_lbp = local_binary_pattern(img, n_points, radius, METHOD)
     img_lbp_hist, bins = np.histogram(img_lbp.ravel(), 256, [0, 256])
     img_lbp_hist = np.transpose(img_lbp_hist[0:256, np.newaxis])
-
     knn = model_knn.predict(img_lbp_hist)
     return knn
 
@@ -45,7 +42,6 @@ def predict_svc(img):
     img_lbp = local_binary_pattern(img, n_points, radius, METHOD)
     img_lbp_hist, bins = np.histogram(img_lbp.ravel(), 256, [0, 256])
     img_lbp_hist = np.transpose(img_lbp_hist[0:256, np.newaxis])
-
     svc = model_svc.predict(img_lbp_hist)
     return svc
 
@@ -54,7 +50,6 @@ def predict_nb(img):
     img_lbp = local_binary_pattern(img, n_points, radius, METHOD)
     img_lbp_hist, bins = np.histogram(img_lbp.ravel(), 256, [0, 256])
     img_lbp_hist = np.transpose(img_lbp_hist[0:256, np.newaxis])
-
     nb = model_nb.predict(img_lbp_hist)
     return nb
 
