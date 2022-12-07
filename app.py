@@ -32,15 +32,31 @@ METHOD = 'uniform'
 # make function of LBP
 
 
-def predict_label(img):
+def predict_knn(img):
     img_lbp = local_binary_pattern(img, n_points, radius, METHOD)
     img_lbp_hist, bins = np.histogram(img_lbp.ravel(), 256, [0, 256])
     img_lbp_hist = np.transpose(img_lbp_hist[0:256, np.newaxis])
 
     knn = model_knn.predict(img_lbp_hist)
+    return knn
+
+
+def predict_svc(img):
+    img_lbp = local_binary_pattern(img, n_points, radius, METHOD)
+    img_lbp_hist, bins = np.histogram(img_lbp.ravel(), 256, [0, 256])
+    img_lbp_hist = np.transpose(img_lbp_hist[0:256, np.newaxis])
+
     svc = model_svc.predict(img_lbp_hist)
+    return svc
+
+
+def predict_nb(img):
+    img_lbp = local_binary_pattern(img, n_points, radius, METHOD)
+    img_lbp_hist, bins = np.histogram(img_lbp.ravel(), 256, [0, 256])
+    img_lbp_hist = np.transpose(img_lbp_hist[0:256, np.newaxis])
+
     nb = model_nb.predict(img_lbp_hist)
-    return knn, svc, nb
+    return nb
 
 
 @app.route('/')
@@ -63,8 +79,12 @@ def upload_image():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        #print('upload_image filename: ' + filename)
-        return render_template('index.html', filename=filename)
+        path = './static/uploads/' + file.filename
+        img = cv.imread(path, cv.IMREAD_GRAYSCALE)
+        output_knn = predict_knn(img)
+        output_svc = predict_svc(img)
+        output_nb = predict_nb(img)
+        return render_template('index.html', filename=filename, pred_knn=output_knn, pred_svc=output_svc, pred_nb=output_nb)
     else:
         flash('Ekstensi file yang diterima adalah JPG/JPEG')
         return redirect(request.url)

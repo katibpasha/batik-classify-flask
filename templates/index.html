@@ -66,13 +66,15 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-5">
                             <img src="{{ url_for('display_image', filename=filename) }}" width="150px">
                         </div>
-                        <div class="col-6">
-                            <label> KNN Model : <b> Batik Parang </b></label><br>
-                            <label>SVC Model : <b> Batik Parang </b></label><br>
-                            <label>NB Model : <b> Batik Parang </b></label>
+                        <div class="col-7">
+                            {% if pred_knn and pred_svc and pred_nb %}
+                            <label> KNN Model : <b> {{ pred_knn }} </b></label><br>
+                            <label>SVC Model : <b> {{ pred_svc }} </b></label><br>
+                            <label>NB Model : <b> {{ pred_nb }} </b></label>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
